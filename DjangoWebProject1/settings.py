@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'social_django',
+    'django.contrib.sites',
+    # 'social_django',
     'usuarios',
 
     'allauth',
@@ -52,6 +53,7 @@ INSTALLED_APPS = [
 ]
 
 SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
@@ -60,8 +62,8 @@ SOCIALACCOUNT_PROVIDERS = {
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
         'APP': {
-            'client_id': '105081766807-or31ubc8n624o3kb7g7cg1aaaq9dd6db.apps.googleusercontent.com',
-            'secret': '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',
+            'client_id': '',
+            'secret': '',
             'key': ''
         }
     }
@@ -75,7 +77,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 AUTHENTICATION_BACKENDS = (
     # 'social_core.backends.open_id.OpenIdAuth',
     # 'social_core.backends.google.GoogleOpenId',
-    'social_core.backends.google.GoogleOAuth2',
+    # 'social_core.backends.google.GoogleOAuth2',
     # 'social_core.backends.google.GoogleOAuth',
     # 'social_core.backends.twitter.TwitterOAuth',
     # 'social_core.backends.yahoo.YahooOpenId',
