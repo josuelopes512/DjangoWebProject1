@@ -2,7 +2,7 @@
 Definition of urls for DjangoWebProject1.
 """
 from datetime import datetime
-from django.urls import path
+from django.urls import path, include
 from app import forms, views as _views
 from django.contrib.auth.views import LoginView, LogoutView
 
@@ -27,4 +27,5 @@ urlpatterns = [
          name='login'),
     path('register/', views.register_request, name="register"),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('accounts/', include('allauth.urls')),
 ]
