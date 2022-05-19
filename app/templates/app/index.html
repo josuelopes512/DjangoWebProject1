@@ -1,6 +1,18 @@
 {% extends "app/layout.html" %}
-
 {% block content %}
+
+{% block styles %}
+    <style>
+        {% comment %} .jobs-container {
+            background-color:#eee;
+        } {% endcomment %}
+
+        .jobs {
+            height: 30vh !important;
+        }
+    </style>
+{% endblock %}
+
 <br>
 <br>
 <div class="jumbotron">
@@ -8,6 +20,8 @@
     <p class="lead">Fast Jobs Busque emprego grátis! No Fast Jobs você pode pesquisar milhões de vagas e decidir a trajetória da sua carreira. Temos ferramentas de busca, currículos e etc.</p>
     {% comment %} <p><a href="#" class="btn btn-primary btn-large">Saiba Mais &raquo;</a></p> {% endcomment %}
 </div>
+
+<div class="jobs-container" id="jobs"></div>
 
 <div class="row">
     <div class="col-md-4">
@@ -30,5 +44,16 @@
         <p><a class="btn btn-default" href="http://azure.microsoft.com">Learn more &raquo;</a></p> {% endcomment %}
     </div>
 </div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    let jobs = document.querySelector('#jobs');
+    axios.get('/vagas').then(({ data }) => {
+        const html = $(data).find('[data-jobs]')
+        $(jobs).append(html);
+    });
+</script>
 
 {% endblock %}
+

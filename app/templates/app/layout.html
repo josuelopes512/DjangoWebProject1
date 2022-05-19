@@ -7,7 +7,10 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
+    {% comment %} {% stylesheet 'core' %} {% endcomment %}
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+    {% block styles %}
+    {% endblock %}
 </head>
 
 <body>
@@ -40,6 +43,7 @@
         </footer>
     </div>
 
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
     <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
     <script src="{% static 'app/scripts/respond.js' %}"></script>
