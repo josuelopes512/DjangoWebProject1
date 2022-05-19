@@ -15,17 +15,17 @@ urlpatterns = [
     path('about/', views.about, name='about'),
     path('vagas/', views.vagas, name='vagas'),
     path('login/',
-         LoginView.as_view
-         (
-             template_name='app/login.html',
-             authentication_form=forms.BootstrapAuthenticationForm,
-             extra_context=
-             {
-                 'title': 'Log in',
-                 'year' : datetime.now().year,
-             }
-         ),
-         name='login'),
+        LoginView.as_view
+        (
+            template_name='app/login.html',
+            authentication_form=forms.BootstrapAuthenticationForm,
+            extra_context=
+            {
+                'title': 'Log in',
+                'year' : datetime.now().year,
+            }
+        ),
+        name='login'),
     path('register/', views.register_request, name="register"),
     path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
     path('accounts/', include('allauth.urls')),
