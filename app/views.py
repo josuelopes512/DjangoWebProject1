@@ -23,7 +23,7 @@ def home(request):
         request,
         'app/index.html',
         {
-            'title':'Home Page',
+            'title':'Pagina Inicial',
             'year':datetime.now().year,
         }
     )
@@ -35,8 +35,8 @@ def contact(request):
         request,
         'app/contact.html',
         {
-            'title':'Contact',
-            'message':'Your contact page.',
+            'title':'Contato',
+            'message':'FastJobs Encontre já',
             'year':datetime.now().year,
         }
     )
@@ -48,8 +48,8 @@ def about(request):
         request,
         'app/about.html',
         {
-            'title':'About',
-            'message':'Your application description page.',
+            'title':'Sobre',
+            'message':'No Fast Jobs você pode pesquisar milhões de vagas e decidir a trajetória da sua carreira.Temos ferramentas de busca, currículos e etc..',
             'year':datetime.now().year,
         }
     )
@@ -61,7 +61,10 @@ def vagas(request):
     return render(
         request,
         'app/vagas.html',
-        {'vagas': vagas}
+        {   
+            'title':'Vagas Disponiveis',
+            'vagas': vagas
+        }
     )
 
 def curriculo(request):
@@ -69,7 +72,10 @@ def curriculo(request):
     return render(
         request, 
         "app/curriculo.html",
-        {'form': form}
+        {
+            'title':'Cadastro Curriculo',
+            'form': form
+        }
     )
 
 def register_request(request):
@@ -86,6 +92,7 @@ def register_request(request):
         request, 
         "app/register.html",        
         {
+            "title": "Registrar",
             "register_form":form
         }
     )

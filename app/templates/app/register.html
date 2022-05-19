@@ -11,9 +11,9 @@
             <form method="post" class="form-horizontal">
                 {% csrf_token %}
                 {{ register_form|crispy }}   
-                <h4>Register</h4>
+                <h4>Registrar</h4>
 
-                <button class="btn btn-primary" type="submit">Register</button>
+                <button class="btn btn-primary" type="submit">Registrar</button>
                 {% if form.errors %}
                 <p class="validation-summary-errors">Please enter a correct user name and password.</p>
                 {% endif %}
