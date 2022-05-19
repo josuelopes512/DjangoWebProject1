@@ -123,3 +123,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = posixpath.join(*(BASE_DIR.split(os.path.sep) + ['static']))
 
 SESSION_COOKIE_AGE = 60 * 5 * 60
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = "/"
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
