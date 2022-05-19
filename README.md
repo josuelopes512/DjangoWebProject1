@@ -6,6 +6,7 @@
 #### Para migrate local
 ```python manage.py makemigrations```
 ```python manage.py migrate```
+```manage.py migrate --run-syncdb```
 
 #### Para criar superuser local
 ```python manage.py createsuperuser```
