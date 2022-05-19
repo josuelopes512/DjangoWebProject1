@@ -3,8 +3,8 @@
     {% csrf_token %}
     <ul class="nav navbar-nav navbar-right">
         <li><span class="navbar-brand">Hello {{ user.username }}!</span></li>
-        <li><a href="{% url 'account_logout' %}">Sign Out</a></li>
-        <li><a href="{% url 'account_email' %}">Change E-mail</a></li>
+        <li><a href="{% url 'account_logout' %}">Logout</a></li>
+        <li><a href="{% url 'account_email' %}">Mudar E-mail</a></li>
 
         {% comment %} <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li> {% endcomment %}
     </ul>
