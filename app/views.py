@@ -6,11 +6,15 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 
-from .forms import NewUserForm
 from django.contrib.auth import login
 from django.contrib import messages
+from django.urls import reverse_lazy
+from django.views.generic import FormView, TemplateView
 
+from .forms import NewUserForm, UserClientForm
 from .models import Vacancies, UserClient, Candidato
+
+
 
 def home(request):
     """Renders the home page."""
@@ -60,6 +64,14 @@ def vagas(request):
         {'vagas': vagas}
     )
 
+def curriculo(request):
+    form = UserClientForm()
+    return render(
+        request, 
+        "app/curriculo.html",
+        {'form': form}
+    )
+
 def register_request(request):
 	if(request.method == "POST"):
 		form = NewUserForm(request.POST)
@@ -77,3 +89,8 @@ def register_request(request):
             "register_form":form
         }
     )
+
+# class UserClientFormView(FormView):
+#     form_class  = UserClientForm
+#     success_url = reverse_lazy('success')
+#     template_name = 'app/curriculo.html'

@@ -52,11 +52,11 @@ class CandidatoForm(forms.ModelForm):
         fields = ["empresa", "usuario"]
 
 
-class UserClassForm(forms.ModelForm):
+class UserClientForm(forms.ModelForm):
     class Meta:
         model = UserClient
         fields = ["full_name", "birthday", "scholarity", "cpf", "telephone_number",
-                  "city", "district", "street", "numero_usuario", "email", "password", "document"]
+                  "city", "district", "street", "document"]
         widget = {
             'password': forms.PasswordInput()
         }

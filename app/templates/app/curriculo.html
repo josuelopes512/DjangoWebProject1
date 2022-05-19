@@ -1,0 +1,106 @@
+{% extends "app/layout.html" %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <br>
+        <br>
+        <br>
+        <form method="post">
+            <div class="row">
+                <div class="col-md-8">
+                    <section id="loginForm">
+                        <form action="." method="post" class="form-horizontal">
+                            {% csrf_token %}
+                            <h4>Preencha os dados.</h4>
+                            <hr />
+                            <div class="form-row">
+                                <div class="form-group col-md-6 mb-0">
+                                    <label for="id_fullname" class="col-md-6 control-label">Nome</label>
+                                    <div class="col-md-10">
+                                        {{ form.full_name }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 mb-0">
+                                    <label for="id_birthday" class="col-md-6 control-label">Data de Aniversario</label>
+                                    <div class="col-md-10">
+                                        {{ form.birthday }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-6 mb-0">
+                                    <label for="id_scholarity" class="col-md-6 control-label">Escolaridade</label>
+                                    <div class="col-md-10">
+                                        {{ form.scholarity }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 mb-0">
+                                    <label for="id_cpf" class="col-md-6 control-label">CPF</label>
+                                    <div class="col-md-10">
+                                        {{ form.cpf }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6 mb-0">
+                                    <label for="id_telephone_number" class="col-md-6 control-label">Telefone</label>
+                                    <div class="col-md-10">
+                                        {{ form.telephone_number }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 mb-0">
+                                    <label for="id_city" class="col-md-6 control-label">Cidade</label>
+                                    <div class="col-md-10">
+                                        {{ form.city }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6 mb-0">
+                                    <label for="id_street" class="col-md-6 control-label">Endereço</label>
+                                    <div class="col-md-10">
+                                        {{ form.street }}
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-6 mb-0">
+                                    <label for="id_district" class="col-md-6 control-label">Bairro</label>
+                                    <div class="col-md-10">
+                                        {{ form.district }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6 mb-0">
+                                    <label for="id_document" class="col-md-6 control-label">Curriculo</label>
+                                    <div class="col-md-10">
+                                        {{ form.document }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-offset-2 col-md-10">
+                                    <input type="hidden" name="next" value="/" />
+                                    <input type="submit" value="Confirmar" class="btn btn-default" />
+                                </div>
+                            </div>
+                            {% if form.errors %}
+                                <p class="validation-summary-errors">Please enter a correct user name and password.</p>
+                            {% endif %}
+                        </form>
+                    </section>
+                </div>
+                <div class="col-md-4">
+                    <section id="socialLoginForm"></section>
+                </div>
+            </div>
+        </form>
+    {% else %}
+        <script>alert("Precisa Está Autenticado")</script>
+        <meta http-equiv="REFRESH" content="0;url={% url 'home' %}">
+    {% endif %}
+{% endblock %}
