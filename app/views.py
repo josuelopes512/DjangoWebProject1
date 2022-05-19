@@ -6,7 +6,7 @@ from datetime import datetime
 from django.shortcuts import render, redirect
 from django.http import HttpRequest
 
-from .forms import NewUserForm
+# from .forms import NewUserForm
 from django.contrib.auth import login
 from django.contrib import messages
 

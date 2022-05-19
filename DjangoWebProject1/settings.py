@@ -40,14 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     
+    'cpf_field',
+    
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
-    # 'allauth.socialaccount.providers.linkedin',
-    # 'allauth.socialaccount.providers.telegram',
-    # 'allauth.socialaccount.providers.discord',
-    # 'allauth.socialaccount.providers.instagram',
 ]
 
 # Middleware framework
@@ -127,3 +125,18 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = "/"
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+SOCIALACCOUNT_PROVIDERS = {
+    'google': {
+        # For each OAuth based provider, either add a ``SocialApp``
+        # (``socialaccount`` app) containing the required client
+        # credentials, or list them here:
+        'APP': {
+            'client_id': '105081766807-or31ubc8n624o3kb7g7cg1aaaq9dd6db.apps.googleusercontent.com',
+            'secret': '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',
+            'key': ''
+        }
+    }
+}
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

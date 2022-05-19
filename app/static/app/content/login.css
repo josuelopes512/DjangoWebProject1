@@ -1,0 +1,166 @@
+div {
+    margin: 0px;
+    padding: 0px;
+    /* overflow-x: hidden; */    background-color: #f2f2f2;
+}
+main {
+    display: flex;
+    justify-content: center;
+}
+.main-container {
+    border: 0px solid rgb(0, 0, 0);
+    max-width: 1000px;
+    height: calc(80vh - 0px);
+    padding: 0px 50px;
+    display: flex;
+    align-items: center;
+}
+.facebook {
+    /* border: 1px solid #000; */    width: 600px;
+    margin-top: -10px;
+}
+.logo {
+    width: 330px;
+    margin: 0px;
+    padding: 0px;
+    margin-left: -30px;
+}
+.h2 {
+    margin-top: -20px;
+    margin-left: 30px;
+    font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
+    font-size: 28px;
+    font-weight: normal;
+    line-height: 32px;
+    padding-right: 30px;
+    width: 510px;
+}
+.login {
+    border: 0px solid #000;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 500px;
+    height: 400px;
+}
+.criar {
+    margin-top: 30px;
+    background-color: #fff;
+    width: 400px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    box-sizing: border-box;
+    border-radius: 7px;
+    padding: 15px;
+    text-align: center;
+}
+.email {
+    width: 92%;
+    height: 50px;
+    font-size: 16px;
+    border-radius: 7px;
+    border: solid 1px #dddfe2;
+    margin-top: 3px;
+    padding-left: 15px;
+    outline: none;
+}
+.senha {
+    width: 92%;
+    height: 50px;
+    font-size: 16px;
+    border-radius: 7px;
+    border: solid 1px #dddfe2;
+    margin-top: 10px;
+    padding-left: 15px;
+}
+.entrar {
+    width: 98%;
+    height: 50px;
+    font-size: 20px;
+    border-radius: 7px;
+    border: solid 0.5px rgba(0, 0, 0, 0.438);
+    background-color: #1877f2;
+    border: none;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+    margin-top: 12px;
+    font-weight: bold;
+    transition: .3s;
+}
+.entrar:hover {
+    background-color: #196edd;
+}
+.bottom {
+    width: 85%;
+    justify-content: center;
+    margin-left: 22px;
+    font-size: 14px;
+    color: #1877f2;
+    font-family: Arial, Helvetica, sans-serif;
+    border-bottom: solid 1px #dddfe2;
+    padding: 5px;
+    padding-bottom: 18px;
+}
+.criar p:hover {
+    text-decoration: underline;
+}
+.nova-conta {
+    margin-top: 15px;
+    width: 163px;
+    height: 48px;
+    font-size: 16px;
+    border-radius: 5px;
+    background-color: #42b72a;
+    border: none;
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.nova-conta:hover {
+    background-color: #3ea829;
+}
+.final-div {
+    margin-top: 5%;
+    border-top: none;
+    color: #1c1e21;
+    font-family: SFProText-Regular, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    padding-top: 0;
+}
+.final-div a {
+    color: #1c1e21;
+    font-family: SFProText-Regular, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+}
+.final-div a:hover {
+    text-decoration: underline;
+}
+@media screen and (max-width: 1000px) {
+    .main-container {
+        width: 0px;
+        height: 110vw;
+        flex-direction: column;       
+    }
+    .facebook {
+        align-items: center;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .logo {
+        margin: auto;
+        width: 60%;
+    }
+    .h2 {
+        font-size: 25px;
+        padding: 0px;
+        text-align: center;
+        width: 350px;
+        padding-left: 0px;
+        margin: auto;
+        margin-top: -20px;
+        line-height: 32px;
+        padding-right: 0px;
+    }
+}
