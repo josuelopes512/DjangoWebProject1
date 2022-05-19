@@ -10,6 +10,8 @@ from .forms import NewUserForm
 from django.contrib.auth import login
 from django.contrib import messages
 
+from .models import Vacancies, UserClient, Candidato
+
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
@@ -46,6 +48,16 @@ def about(request):
             'message':'Your application description page.',
             'year':datetime.now().year,
         }
+    )
+
+def vagas(request):
+    """Renders the about page."""
+    vagas = Vacancies.objects.all()
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/vagas.html',
+        {'vagas': vagas}
     )
 
 def register_request(request):

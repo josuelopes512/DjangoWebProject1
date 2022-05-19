@@ -1,0 +1,22 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+<div class="board-header">
+    <header>
+      <h2 class="board-header-title">Últimas oportunidades cadastradas</h2>
+    </header>
+</div>
+{% for job in vagas %}
+  <ul class="jumbotron">
+    <li class="job-item">
+      <span class="title">{{job.titulo}}</span>
+      <br>
+      <br>
+      <p>{{job.descricao}}</p>
+      <br>
+      <span class="price">R$ {{job.salario}}</span>
+      <br>
+    </li>
+  </ul>
+{% endfor %}
+{% endblock %}

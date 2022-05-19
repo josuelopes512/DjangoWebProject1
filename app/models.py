@@ -36,14 +36,13 @@ MODALIDADE = (
 )
 class Tecnologia(Model):
     nome = CharField(max_length=255, null=False, blank=False)
-    def __str__(self):
-        return self.nome
+
 
 class Vacancies(Model):
     __tablename__ = 'vagas'
     vaga_id = AutoField(primary_key=True)
     titulo = CharField(max_length=50)
-    descricao = CharField(max_length=1000)
+    descricao = TextField()
     salario = FloatField()
     empresa = CharField(max_length=50)
     modalidade = CharField(max_length=20, choices = MODALIDADE)
@@ -71,14 +70,10 @@ class UserClient(Model):
     created_at = DateField(auto_now_add=True)
     updated_at = DateTimeField(auto_now=True)
     
-    def __str__(self):
-        return self.usuario
 
 class Candidato(Model):
     empresa = ForeignKey(Vacancies, on_delete=CASCADE, verbose_name="Empresa")  
     usuario = ForeignKey(UserClient, on_delete=CASCADE, verbose_name="Usuario") 
-    def __str__(self):
-        return self.usuario
 
 class Recrutador(Model):
     pass
