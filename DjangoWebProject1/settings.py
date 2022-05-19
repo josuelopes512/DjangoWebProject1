@@ -25,7 +25,10 @@ SECRET_KEY = '1aeeb222-9010-4838-a308-aed5a77b19cc'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+# HTTP_SITE = ''
+# ALLOWED_HOSTS = [f'{HTTP_SITE}']
+# CSRF_TRUSTED_ORIGINS = [f'https://{HTTP_SITE}']
 
 # Application references
 # https://docs.djangoproject.com/en/2.1/ref/settings/#std:setting-INSTALLED_APPS
