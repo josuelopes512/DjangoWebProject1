@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{%block ogimage%}
+{% endblock %}
+{% block title %}
+{{job.title}} {% translate "no"%} {{WEBSITE_NAME}}
+{% endblock %}
+{%block main%}
+<section class="detalhes-vaga">
+    <div class="container">
+        <center><h1 class="text-info">Challenge: {{job.title}}</h1></center>
+
+        <h2>{% translate "Desafio:"%}</h2>
+        {{job.challenge | safe | linebreaks}}
+        <center>
+            <form action="{% url 'job_application_challenge_submission' job.unique_slug %}" method="post">
+                {% csrf_token %}
+                {{formset}}
+                <input type="submit" name="" value="{% translate 'Enviar resposta!'%}">
+            </form>
+        </center>
+    </div>
+</section>
+
+{%endblock%}

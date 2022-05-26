@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load static %}
+{% load humanize %}
+{%block ogimage%}
+{% endblock %}
+{% block title %}
+{{job.title}} no {{WEBSITE_NAME}}
+{% endblock %}
+{%block main%}
+<section class="clean-block clean-faq dark">
+
+    <div class="container" style="min-height: 100vh;">
+            <br>
+            <br>
+            <center><h2>{{job.title}}</h2></center>
+            <center><p>{% translate "Postada" %}: {{job.created_at|naturalday}}</p></center>
+            {% if is_staff %}
+            <p>
+                {% translate "Para baixar estes dados em CSV" %}, <a href="{% url 'get_job_applications' job.unique_slug %}">{% translate "Clique Aqui" %}</a>!
+            </p>
+            {% endif %}
+            <table class="table table-hover table-responsive table-bordered">
+                    <thead>
+                        <tr>
+                            <th>{% translate "Nome" %}</th>
+                            <th>{% translate "Sobrenome" %}</th>
+                            <th>{% translate "Email" %}</th>
+                            <th>{% translate "GitHub" %}</th>
+                            <th>{% translate "Telefone" %}</th>
+                            <th>{% translate "LinkedIn" %}</th>
+                            <th>{% translate "Mandar feedback" %}</th>
+                            {% if job.consultancy or is_staff %}
+                            <th>{% translate "Enviado Em" %}</th>
+                            <th>{% translate "Link da Resposta" %}</th>
+                            <th>{% translate "Respondido Em" %}</th>
+                            <th>{% translate "Output" %}</th>
+                            <th>{% translate "Comentário" %}</th>
+                            {% endif %}
+                            {% if is_staff %}
+                            <th>{% translate "Editar" %}</th>
+                            {% endif %}
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        {% for r in rows %}
+                        <tr>
+                            <td>{{ r.user.first_name }}</td>
+                            <td>{{ r.user.last_name }}</td>
+                            <td>{{ r.user.email }}</td>
+                            <td>{% if r.user.profile.github is not None %}<a href="{{ r.user.profile.github }}">{{ r.user.profile.github }}</a>{% endif %}</td>
+                            <td>{% if r.user.profile.cellphone is not None %}{{ r.user.profile.cellphone }}{% endif %}</td>
+                            <td>{% if r.user.profile.linkedin is not None %}<a href="{{ r.user.profile.linkedin }}">{{ r.user.profile.linkedin }}</a>{% endif %}</td>
+                            <td><a href="{% url 'job_application_feedback' r.pk %}">Feedback</a></td>
+                            {% if job.consultancy or is_staff %}
+                            <td>{% if r.email_sent_at is not None %}{{ r.email_sent_at }}{% else %}{% endif %}</td>
+                            <td>{% if r.challenge_response_link is not None %}<a href="{{ r.challenge_response_link }}">{{ r.challenge_response_link }}</a>{% else %}{% endif %}</td>
+                            <td>{% if r.challenge_response_at is not None %}{{ r.challenge_response_at }}{% else %}{% endif %}</td>
+                            <td>{% if r.output is not None %}{{ r.output }}{% else %}{% endif %}</td>
+                            <td>{% if r.comment is not None %}{{ r.comment }}{% else %}{% endif %}</td>
+                            {% endif %}
+                            {% if is_staff %}
+                            <td><a href="{% url 'admin:core_jobapplication_change' r.pk %}">{% translate "Adicionar"%}</a></td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                </div>
+        </section>
+{%endblock%}

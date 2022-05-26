@@ -14,7 +14,8 @@ from django.views.generic import FormView, TemplateView
 from .forms import NewUserForm, UserClientForm
 from .models import Vacancies, UserClient, Candidato
 
-
+def index(request):
+    pass
 
 def home(request):
     """Renders the home page."""

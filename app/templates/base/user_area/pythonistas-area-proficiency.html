@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %}
+{% translate "Atualize suas proficiências"%} - {{WEBSITE_NAME}}
+{% endblock %}
+{%block main%}
+<section style="padding: 30px;">
+    <div class="container">
+        <h2 class="text-info">{% translate "Área do"%} {{USER_SUBSTANTIVE}} - {% translate "Ajuste de proficiências" %} </h2>
+        <hr>
+        <p>
+            {% blocktranslate %}
+            Aqui, você deverá preencher quais são as suas maiores skills e a quantidade de anos que você atua com elas.
+            {% endblocktranslate %}
+        </p>
+        <form method="post" action="/user/proficiency/">
+            {% csrf_token %}
+            {{ formset.management_form }}
+            <div id="form_set">
+                <div class='row' id="table-{{ forloop.counter0 }}" style="margin-top:30px;">
+                        <div class="col-md-4">
+                            <b>
+                                {% blocktranslate %}
+                                Skill
+                                {% endblocktranslate %}
+                            </b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>
+                                {% blocktranslate %}
+                                Anos de experiência
+                                {% endblocktranslate %}
+                            </b>
+                        </div>
+                        <div class="col-md-4">
+                            <b>
+                                {% blocktranslate %}
+                                Deletar?
+                                {% endblocktranslate %}
+                            </b>
+                        </div>
+                </div>
+                {% for form in formset.forms %}
+                    <div class='row' id="table-{{ forloop.counter0 }}" style="margin-top:30px;">
+                        {% for hidden_field in form.hidden_fields %}
+                            {{ hidden_field }}
+                        {% endfor %}
+                        {{form.non_field_errors}}
+                        {{form.errors}}
+                        {% for field in form.visible_fields %}
+                            <div class="col-md-4">
+                                {% if form.errors %}
+                                    {% render_field field class="form-control is-invalid" %}
+                                {% else %}
+                                    {% render_field field class="form-control" %}
+                                {% endif %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endfor %}
+            </div>
+            <input type="button" value="{% translate 'Adicionar Skill' %}" id="add_more" class="botao" style="margin-top:30px;">
+            <input type="submit" value="{% translate 'Enviar' %}" class="botao" style="margin-top:30px;" onclick="this.disabled=true;this.value='{% translate "Enviando" %}'; this.form.submit();">
+            
+            <div id="empty_form" style="display:none;">
+                <div class="row" id="table-__prefix__" style="margin-top:30px;">
+                {% for field in formset.empty_form.visible_fields %}
+                <div class="col-md-4">
+                    {% render_field field class="form-control" %}
+                </div>
+            {% endfor %}
+        </div>
+        </div>
+        </form>
+    </div>
+</section>
+{%endblock%}
+{% block extra_scripts%}
+<script>
+    function addEventListenerToCheckBoxes(checkboxes) {
+        checkboxes.forEach((item) => {
+            item.addEventListener("change", (checkboxItem) => {
+                console.log(checkboxItem);
+                var formIdToRemove = checkboxItem.target.id.replace("id_skillproficiency_set-", "table-").replace("-DELETE", "");
+                var form = document.getElementById(formIdToRemove);
+                form.style.display = "none";
+            })
+        });
+    }
+
+
+    const checkboxes = document.querySelectorAll("input[type='checkbox']");
+    addEventListenerToCheckBoxes(checkboxes);
+
+    $('#add_more').click(function() {
+        var form_idx = $('#id_skillproficiency_set-TOTAL_FORMS').val();
+        $('#form_set').append($('#empty_form').html().replace(/__prefix__/g, form_idx));
+        $('#id_skillproficiency_set-TOTAL_FORMS').val(parseInt(form_idx) + 1);
+        $("#id_skillproficiency_set-NUM-skill".replace("NUM", form_idx)).val("");
+        const checkboxes = document.querySelectorAll("input[type='checkbox']");
+        addEventListenerToCheckBoxes(checkboxes);
+    });
+
+
+</script>
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+{%endblock%}

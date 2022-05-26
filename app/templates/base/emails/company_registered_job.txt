@@ -1,0 +1,9 @@
+{% load i18n %}
+{% translate "Olá"%} {{vaga.company_name}},
+
+{% translate "Agora que você criou a vaga"%} {{vaga.title}}, {% translate "nós lhe enviaremos os detalhes de quem se inscreveu para ela, assim você conseguirá entrar em contato com eles"%}
+
+{% translate "Em breve iremos lhe enviar o link da sua vaga para divulgação!"%}
+
+{% translate "Abraços,"%}
+{{dono_do_site}}

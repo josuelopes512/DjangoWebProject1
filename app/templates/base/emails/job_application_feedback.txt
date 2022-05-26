@@ -1,0 +1,14 @@
+{% load i18n %}
+{% translate "Olá" %} {{pessoa.first_name}},
+
+{% translate "Aqui vai o seu feedback para a vaga" %} '{{vaga.title}}' {% translate "na"%} {{vaga.company_name}}
+
+
+{{job_application.company_feedback}}
+
+
+{% translate "E o seu status no processo seletivo é" %}: {{job_application.feedback_type}}
+
+
+{% translate "Abraços" %},
+{{dono_do_site}}

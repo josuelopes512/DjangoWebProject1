@@ -1,0 +1,10 @@
+{% load i18n %}
+{% translate "Olá"%},
+
+{% translate "A pessoa:"%} {{mensagem.name}} {% translate "quer falar sobre" %} {{mensagem.subject}}.
+
+{% translate "A mensagem dela é:"%}
+
+{{mensagem.message}}
+
+{% translate "Para mandar um email para ela, basta enviar para:"%} {{mensagem.email}}

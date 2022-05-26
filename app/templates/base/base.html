@@ -1,0 +1,228 @@
+{% load i18n %}
+{% load static %}
+{% load webpush_notifications %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-T2VF6PC');</script>
+    <!-- End Google Tag Manager -->
+    <!-- Facebook Pixel Code -->
+    <!-- Facebook Pixel Code --><script defer>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js'); fbq('init', '2952044945010312'); fbq('track', 'PageView');</script><noscript> <img height="1" width="1" src="https://www.facebook.com/tr?id=2952044945010312&ev=PageView&noscript=1"/></noscript><!-- End Facebook Pixel Code -->
+    <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=595313061373123&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Facebook Pixel Code -->
+    <meta charset="utf-8">
+    {% block metas %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="{% translate 'Aqui seu novo emprego'%} {{WEBSITE_WORKING_LANGUAGE}} {% translate 'acha você. Oportunidades para programadores'%} {{WEBSITE_WORKING_LANGUAGE}} {% translate 'nas áreas de back-end, data scientists e outros devs. Receba até 10 ofertas para trabalhar como desenvolvedor.'%}" name="description"/>
+    <meta name="description" content="{% blocktranslate %}Aqui seu novo emprego {{WEBSITE_WORKING_LANGUAGE}} acha você. Oportunidades para programadores {{WEBSITE_WORKING_LANGUAGE}} nas áreas de back-end, data scientists e outros devs. Receba até 10 ofertas para trabalhar como desenvolvedor.{% endblocktranslate %}">
+    <title>{% if title %}{{title}}{%else%}{{WEBSITE_NAME}} - {% translate "Vagas de Emprego {{WEBSITE_WORKING_LANGUAGE}}"%}{%endif%}</title>
+    <meta name="keywords" content="{% blocktranslate %} empregos, vagas, buscar vagas, vagas de emprego, vagas de programador {{WEBSITE_WORKING_LANGUAGE}}, emprego de programador {{WEBSITE_WORKING_LANGUAGE}}, empregos {{WEBSITE_WORKING_LANGUAGE}}, vagas {{WEBSITE_WORKING_LANGUAGE}}, buscar vagas {{WEBSITE_WORKING_LANGUAGE}}, vagas de emprego {{WEBSITE_WORKING_LANGUAGE}}{% endblocktranslate %}">
+    <meta name="twitter:description" content="{% blocktranslate %}Aqui seu novo emprego {{WEBSITE_WORKING_LANGUAGE}} acha você. Oportunidades para programadores {{WEBSITE_WORKING_LANGUAGE}} nas áreas de back-end, data scientists e outros devs. Receba até 10 ofertas para trabalhar como desenvolvedor.{% endblocktranslate %}">
+    <meta property="og:image" content="http://mediad.publicbroadcasting.net/p/shared/npr/styles/x_large/nprshared/201310/208254350.jpg" />
+    <meta property="og:site_name" content="{{WEBSITE_NAME}}" />
+    <meta property="og:title" content="{% if title %}{{title}}{%else%}{{WEBSITE_NAME}} - {% blocktranslate %}Vagas de Emprego {{WEBSITE_WORKING_LANGUAGE}}{% endblocktranslate %}{%endif%}" />
+    <meta property="og:locale" content="pt_BR" />
+    <meta property="og:description" content="{% blocktranslate %}Aqui seu novo emprego {{WEBSITE_WORKING_LANGUAGE}} acha você. Oportunidades para programadores {{WEBSITE_WORKING_LANGUAGE}} nas áreas de back-end, data scientists e outros devs. Receba até 10 ofertas para trabalhar como desenvolvedor.{% endblocktranslate %}" />
+    {% endblock metas%}
+    <push data-push-subscribe-label="{% translate 'Inscrever no Push' %}" id="push-subscribe"></pushsub>
+    <push data-push-unsubscribe-label="{% translate 'Desinscrever no Push' %}" id="push-unsubscribe"></pushunsub>
+    <script src="{% url 'javascript-catalog' %}"></script>
+    {% block metas_seo %}
+    {% endblock metas_seo %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    {% with 'assets/css/'|add:WEBSITE_URL|add:'/variables.css' as css_static %}
+      <link rel="stylesheet" href="{% static css_static %}">
+    {% endwith %}
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+    {% with 'assets/img/'|add:WEBSITE_URL|add:'/favicon.ico' as favico_path %}
+      <link rel="shortcut icon" href="{% static favico_path %}">
+    {% endwith %}
+    <script src="https://kit.fontawesome.com/8347312236.js" crossorigin="anonymous"></script>
+    {% webpush_header %}
+    <!-- Hotjar Tracking Code for www.pyjobs.com.br -->
+    <script defer>
+        (function(h,o,t,j,a,r){
+            h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+            h._hjSettings={hjid:2219438,hjsv:6};
+            a=o.getElementsByTagName('head')[0];
+            r=o.createElement('script');r.async=1;
+            r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+            a.appendChild(r);
+        })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+    </script>
+</head>
+
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-T2VF6PC"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
+    <nav class="navbar navbar-expand-md navbar-light justify-content-between shadow-sm p-2">
+      <div class="container-fluid">
+            <a class="navbar-brand">
+                    <a class="nav-link" href="{% url 'index' %}" style="margin: 0; padding: 0;">
+                      {% with 'assets/img/'|add:WEBSITE_URL|add:'/logo.webp' as logo_path %}
+                        <img src="{% static logo_path %}" style="height:42px">
+                      {% endwith %}
+                        <h1 style="display:none;">{{WEBSITE_NAME}}</h1>
+                    </a>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto" style="margin-right: 10px;">
+                <form action="{% url 'set_language' %}" method="post">{% csrf_token %}
+                  <input name="next" type="hidden" value="{{ redirect_to }}">
+                  <li class="nav-item active" style="margin-top: 8px;">
+                      <select name="language" onchange="this.form.submit()">
+                          {% get_current_language as LANGUAGE_CODE %}
+                          {% get_available_languages as LANGUAGES %}
+                          {% get_language_info_list for LANGUAGES as languages %}
+                          {% for language in languages %}
+                              <option value="{{ language.code }}"{% if language.code == LANGUAGE_CODE %} selected{% endif %}>
+                                  {{ language.name_local }} ({{ language.code }})
+                              </option>
+                          {% endfor %}
+                      </select>
+                  </li>
+                </form>
+                  <li class="nav-item active">
+                      <a class="nav-link" href="{% url 'jobs' %}">{% translate "Vagas"%}</a>
+                  </li>
+                  <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'blog_index' %}">{% translate "Blog"%}</a>
+                </li>
+                  {% if not user.is_authenticated %}
+                  <li class="nav-item active form-inline my-2 my-lg-0">
+                    <a class="" href="{% url 'login' %}">
+                    <button class="botao-inverso">
+                      {% translate "Logar"%}
+                    </button>
+                  </a>
+                  </li>
+                  {% else %}
+                  <li class="nav-item active dropdown ">
+                    <a class="nav-link dropdown-toggle" href="{% url 'pythonistas_area' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      {% blocktranslate %} Área do {{USER_SUBSTANTIVE}} {% endblocktranslate %}
+                    </a>
+                  <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="{% url 'pythonistas_area' %}">{% translate "Meu painel"%}</a>
+                    <a class="dropdown-item" href="{% url 'logout' %}">{% translate "Logout"%}</a>
+                  </div>
+                </li>
+                  {%endif%}
+                  <div class="form-inline my-2 my-lg-0">
+                    <a href="{% url 'job_creation' %}">
+                        <button class="botao">{% translate "Cadastre uma vaga"%}</button>
+                    </a>
+                </div>
+              </ul>
+            </div>
+        </div>
+      </div>
+      </nav>
+      {% if EMPTY_PROFILE %}
+            <div class="alert alert-danger">
+              <a href="{% url 'change_info' %}" style="color: #000; text-decoration: underline">
+                <p style="font-size: 18px;">{% translate "Clique aqui e termine seu cadastro antes de se inscrever a uma vaga!"%}</p>
+              </a>
+            </div>
+      {% endif %}
+      <script>
+        AnalyticsCode = "{{GA_CODE}}";
+        linkHref = "/privacy/";
+        btn1Text = "{% translate 'Aceitar cookies'%}";
+        btn2Text = "{% translate 'Rejeitar'%}";
+        bannerDescription = "{% translate 'Utilizamos cookies próprios e de terceiros para personalizar o conteúdo e analisar o tráfego do site.'%}";
+        linkTexto = "{% translate 'Leia mais sobre nossa politica de privacidade'%}";
+        manageText = "Cookies";
+        btn1Background = "#E82670";
+        bannerPosition = "right";
+        hideAfterClick = true;
+    </script>
+    {%block main%}
+    {%endblock main%}
+    <footer>
+        <div class="container py-5">
+          <div class="row">
+            <div class="col-12 col-md my-auto">
+              {% with 'assets/img/'|add:WEBSITE_URL|add:'/simbolo.webp' as symbol_path %}
+                <img src="{% static symbol_path %}" alt="" width="200" loading="lazy">
+              {% endwith %}
+            </div>
+            <div class="col-6 col-md">
+              <h5>HOME</h5>
+              <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="{% url 'login' %}">{% translate "Login"%}</a></li>
+                <li><a class="text-muted" href="{% url 'services' %}">{% translate "Nossos serviços"%}</a></li>
+                <li><a class="text-muted" href="{% url 'pythonistas_signup' %}">{% translate "Cadastre-se"%}</a></li>
+                <li><a class="text-muted" href="{% url 'privacy' %}">{% translate "Pol&iacute;tica de privacidade"%}</a></li>
+              </ul>
+            </div>
+            <div class="col-6 col-md">
+              <h5>VAGAS</h5>
+              <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="{% url 'jobs' %}">{% translate "Ver Vagas"%}</a></li>
+                <li><a class="text-muted" href="{% url 'job_state_view' 'sao-paulo' %}">{% translate "Vagas"%} {{WEBSITE_WORKING_LANGUAGE}} - São Paulo</a></li>
+                <li><a class="text-muted" href="{% url 'job_state_view' 'rio-de-janeiro' %}">{% translate "Vagas"%} {{WEBSITE_WORKING_LANGUAGE}} - Rio de Janeiro</a></li>
+                <li><a class="text-muted" href="{% url 'job_state_view' 'espirito-santo' %}">{% translate "Vagas"%} {{WEBSITE_WORKING_LANGUAGE}} - Espirito Santo</a></li>
+              </ul>
+            </div>
+            <div class="col-6 col-md">
+              <h5>{% translate "CADASTRE-SE"%}</h5>
+              <ul class="list-unstyled text-small">
+                <li><a class="text-muted" href="{% url 'job_creation' %}">{% translate "Cadastre uma vaga"%}</a></li>
+                <li><a class="text-muted" href="{% url 'pythonistas_signup' %}">{% translate "Cadastre-se"%}</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+    </footer>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    {% if not user.is_authenticated %}
+      {% include 'modal_donate.html'%}
+    {% endif %}
+    {% if not user.is_authenticated %}
+      <script>
+        $(document).ready(function(){
+          if (document.cookie.indexOf("visitado=") >= 0) {}
+          else {
+              document.cookie = "visitado=yes; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+              $("#modal-donate").modal();
+          }
+        });
+      </script>
+      {% endif %}
+      <script>
+        $(document).ready(function(){
+          subBtn = document.getElementById('webpush-subscribe-button');
+          subBtn.textContent = 'Inscrever no Push';
+        });
+      </script>
+    <script src="{% static 'assets/js/theme.js' %}"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', '{{GA_CODE}}', 'auto');
+      ga('send', 'pageview');
+      </script>
+    {%block extra_scripts%}
+    {%endblock%}
+</body>
+</html>

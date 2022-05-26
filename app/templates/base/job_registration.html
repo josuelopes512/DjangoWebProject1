@@ -1,0 +1,269 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% load static %}
+{% block title %}
+{% translate "Cadastre uma vaga - {{WEBSITE_NAME}}"%}
+{% endblock %}
+{%block metas%}
+<meta property="og:image" content="http://mediad.publicbroadcasting.net/p/shared/npr/styles/x_large/nprshared/201310/208254350.jpg" />
+<meta property="og:title" content="{% translate 'Poste uma vaga de'%} {{WEBSITE_WORKING_LANGUAGE}} {% translate 'no'%} {{WEBSITE_NAME}}" />
+<meta property="og:locale" content="{% translate 'pt_BR'%}" />
+<meta content="{% translate 'Poste uma vaga de' %} {{WEBSITE_WORKING_LANGUAGE}} {% translate 'no' %} {{WEBSITE_NAME}}, {% translate 'assim você poderá encontrar os melhores' %} {{USER_SUBSTANTIVE}}s." property="og:description"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta content="{% translate 'Poste uma vaga de' %} {{WEBSITE_WORKING_LANGUAGE}} {% translate 'no' %} {{WEBSITE_NAME}}, {% translate 'assim você poderá encontrar os melhores' %} {{USER_SUBSTANTIVE}}s." name="description"/>
+<title>Poste uma vaga de {{WEBSITE_WORKING_LANGUAGE}} no {{WEBSITE_NAME}}</title>
+<meta content="{% translate 'Poste uma vaga de'%} {{WEBSITE_WORKING_LANGUAGE}} {% translate 'no' %} {{WEBSITE_NAME}}, {% translate 'assim você poderá encontrar os melhores'%} {{USER_SUBSTANTIVE}}s." name="twitter:description"/>
+<meta property="og:site_name" content="{{WEBSITE_NAME}}" />
+{% endblock %}
+{%block main%}
+<section class="cadastro-de-vaga">
+    <div class="container container-cadastro-vaga">
+        <div class="row row-titulo">
+            <div class="col-md-12">
+                <h2>{% translate "Cadastre sua vaga e encontre o profissional ideal."%}</h2>
+                <span>{% translate "Complete as informações abaixo com riqueza de detalhes, isso ajudará os profissionais a se candidatarem ao perfil ideal para a vaga."%}</span>
+                <hr>
+            </div>
+        </div>
+    </div>
+    <form action="." method="post">
+        {% csrf_token %}
+        {% if new_job_form.errors %}
+            <p class="text-center">{% translate "Falha na hora de criar o job" %}</p>
+        {% endif %}
+        <div class="container container-cadastro-vaga">
+            <div class="row row-titulo-etapa" style="margin-bottom: 15px;">
+                <h4>{% translate "INFORMAÇÕES B&Aacute;SICAS DA VAGA"%}</h4>
+            </div>
+            <div class="row">
+                <p>{% translate "Aqui voc&ecirc; ir&aacute; preencher algumas informa&ccedil;&otilde;es básicas sobre a vaga, como título, n&iacute;vel de senioridade e o nome da sua empresa"%}</p>
+            </div>
+            <div class="row">
+                <div class="col-md-8">
+                    {% if new_job_form.title.errors %}
+                        {% render_field new_job_form.title class="form-control is-invalid"%}
+                    {% else %}
+                        {% render_field new_job_form.title class="form-control"%}
+                    {% endif %}
+                    
+                    <p class='mt-1'>{{new_job_form.title.errors}}</p>
+                </div>
+                <div class="col-md-4 filtro-form-item-select">
+                    <div class="select-form-filtro" style="margin-top:5px;">
+                        {{new_job_form.job_level}}
+                        {{new_job_form.job_level.errors}}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                    <div class="col-md-12">
+                        {% if new_job_form.company_name.errors %}
+                            {% render_field new_job_form.company_name class="form-control is-invalid"%}
+                        {% else %}
+                            {% render_field new_job_form.company_name class="form-control"%}
+                        {% endif %}
+                    
+                        <p class='mt-1'>{{new_job_form.company_name.errors}}</p>
+                    </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <hr style="margin-top:40px;">
+                </div>
+            </div>
+            <div class="row row-titulo-etapa">
+                    <h4>{% translate "LOCALIZA&Ccedil;&Atilde;O"%}</h4>
+            </div>
+            <div class="row">
+                <p>{% blocktranslate %}Aqui voc&ecirc; ir&aacute; preencher algumas informa&ccedil;&otilde;es sobre a localiza&ccedil;&atilde;o da vaga, como pa&iacute;s, moeda de pagamento, estado (somente v&aacute;lido para o Brasil) e endereço.{% endblocktranslate %}</p>
+            </div>
+            <div class="row">
+                <div class="col-md-6 filtro-form-item-select">
+                    <div class="select-form-filtro">
+                        {{new_job_form.country}}
+                        {{new_job_form.country.errors}}
+                    </div>
+                </div>
+                <div class="col-md-6 filtro-form-item-select">
+                    <div class="select-form-filtro">
+                        {% render_field new_job_form.currency style="margin-top: -2px;"%}
+                        {{new_job_form.currency.errors}}
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 10px;">
+                <div class="col-md-6 filtro-form-item-select">
+                    <div class="select-form-filtro">
+                        {{new_job_form.state}}
+                        {{new_job_form.state.errors}}
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    
+                    {% if new_job_form.workplace.errors %}
+                        {% render_field new_job_form.workplace style="margin-top: -2px" class="form-control is-invalid"%}
+                    {% else %}
+                        {% render_field new_job_form.workplace style="margin-top: -2px" class="form-control"%}
+                    {% endif %}
+                    
+                    <p class="mt-1">{{new_job_form.workplace.errors}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <br>
+                    {{new_job_form.remote}}
+                    <span>{% translate "Vaga permite trabalho remoto"%}</span>
+                </div>
+            </div>
+            <hr style="margin-top:40px;">
+            <div class="row row-titulo-etapa">
+                <h4>{% translate "REMUNERA&Ccedil;&Atilde;O"%}</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-12 filtro-form-item-select">
+                    <div class="select-form-filtro">
+                        {{new_job_form.salary_range}}
+                        {{new_job_form.salary_range.errors}}
+                    </div>
+                </div>
+            </div>
+            <hr style="margin-top:40px;">
+            <div class="row row-titulo-etapa">
+                <h4>{% translate "TIPO DE CONTRATO"%}</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-12 filtro-form-item-select">
+                    <div class="select-form-filtro">
+                        {{new_job_form.contract_form}}
+                        {{new_job_form.contract_form.errors}}
+                    </div>
+                </div>
+            </div>
+            <hr style="margin-top:40px;">
+            <div class="row row-titulo-etapa">
+                <h4>{% translate "REQUISITOS"%}</h4>
+            </div>
+            <div class="row">
+                <p>{% translate "Aqui voc&ecirc; ir&aacute; preencher algumas informa&ccedil;&otilde;es sobre os requisitos da vaga. Recomendamos descrever os requisitos conforme o que voc&ecirc;s utilizam na empresa."%}</p>
+            </div>
+            <div class="row">
+                <div class="col-md-12 filtro-form-item-select">
+                    
+                    {% if new_job_form.requirements.errors %}
+                        {% render_field new_job_form.requirements class="form-control is-invalid"%}
+                    {% else %}
+                        {% render_field new_job_form.requirements class="form-control"%}
+                    {% endif %}
+                    
+                    <p class="mt-1">
+                        {{new_job_form.requirements.errors}}
+                    </p>
+                </div>
+            </div>
+            <hr style="margin-top:40px;">
+            <div class="row row-titulo-etapa">
+                <h4>{% translate "DESCRI&Ccedil;&Atilde;O"%}</h4>
+            </div>
+            <div class="row">
+                <p>{% translate "Aqui voc&ecirc; ir&aacute; preencher algumas informa&ccedil;&otilde;es sobre a descri&ccedil;&atilde;o da vaga! Recomendamos que preencha sobre como &eacute; a empresa e como &eacute; a atua&ccedil;&atilde;o nessa vaga"%}</p>
+            </div>
+            <div class="row">
+                <div class="col-md-12 filtro-form-item-select">
+                    
+                    {% if new_job_form.description.errors %}
+                        {% render_field new_job_form.description class="form-control is-invalid"%}
+                    {% else %}
+                        {% render_field new_job_form.description class="form-control"%}
+                    {% endif %}
+                    
+                    <p class="mt-1">
+                        {{new_job_form.description.errors}}
+                    </p>
+                </div>
+            </div>
+            <hr style="margin-top:40px;">
+            <div class="row row-titulo-etapa">
+                <h4>{% translate "SKILLS"%}</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-12 filtro-form-item-select">
+                    {% render_field new_job_form.skills style="width:100%;" class="inputtext-model"%}
+                </div>
+            </div>
+            <hr style="margin-top:40px;">
+            <div class="row row-titulo-etapa" style="margin-bottom: 15px;">
+                <h4>{% translate "DADOS PARA CONTATO"%}</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    {% if new_job_form.cellphone.errors %}
+                        {% render_field new_job_form.cellphone class="form-control is-invalid"%}
+                    {% else %}
+                        {% render_field new_job_form.cellphone class="form-control"%}
+                    {% endif %}
+                    
+                    <p class="mt-1">
+                        {{ new_job_form.cellphone.errors }}
+                    </p>
+                </div>
+                <div class="col-md-6">
+
+                    
+                    {% if new_job_form.company_email.errors %}
+                        {% render_field new_job_form.company_email class="form-control is-invalid"%}
+                    {% else %}
+                        {% render_field new_job_form.company_email class="form-control"%}
+                    {% endif %}
+                    
+                    <p class="mt-1">
+                        {{ new_job_form.company_email.errors }}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {% render_field new_job_form.application_link style="margin-top:5px; width:100%; height: 44px;border-radius: 10px;border: 1px solid rgba(170, 170, 170, 0.3);overflow: hidden;padding: 10px;-moz-box-shadow:    inset 0 0 5px #aaa;-webkit-box-shadow: inset 0 0 5px #aaa;box-shadow:         inset 0 0 5px #aaa;-webkit-appearance: none;-moz-appearance: none;"%}
+                    {{ new_job_form.application_link.errors }}
+                </div>
+            </div>
+            <hr style="margin-top:40px;">
+            <div class="row row-titulo-etapa">
+                <h4>{% translate "DÊ UM BOOST EM SUA VAGA! (Extras)"%}</h4>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    {% render_field new_job_form.challenge_interested %}
+                    <span>{% translate "Eu quero aplicar testes técnicos através da ferramenta automatizada do"%} {{WEBSITE_NAME}}.</span>
+                </div>
+            </div>
+            <div class="row" style="margin-top:15px;">
+                <div class="col-md-12">
+                    {% render_field new_job_form.ad_interested %}
+                    <span>{% translate "Eu desejo ter acesso aos serviços do"%} {{WEBSITE_NAME}} {% translate "e ao clube de profissionais exclusivos."%}</span>
+                </div>
+            </div>
+            <hr style="margin-top:40px;">
+            <div class="row" style="padding-bottom: 20px;">
+                <div class="g-recaptcha" data-sitekey="{{RECAPTCHA_SITE_KEY}}"></div>
+            </div>
+            <div class="row" style="padding-bottom: 20px;">
+                <script>
+                    const translateSnippet = '{% translate "Enviando" %}' 
+                </script>
+                <input type="submit" name="" value="{% translate 'CADASTRE MINHA VAGA, '%} {{WEBSITE_NAME}}!" class="botao" onclick="this.disabled=true; this.value=`${translateSnippet}`; this.form.submit();">
+            </div>
+        </div>
+    </form>
+{%endblock%}
+{% block extra_scripts%}
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+  $('#id_skills').select2();
+});
+</script>
+{%endblock%}
